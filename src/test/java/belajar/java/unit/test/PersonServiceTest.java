@@ -43,4 +43,16 @@ public class PersonServiceTest {
         Assertions.assertEquals("ichwan",person.getId());
         Assertions.assertEquals("Ichwan",person.getName());
     }
+
+    @Test
+    void testRegisterSuccess(){
+        var person = personService.register("Ichwan");
+        Assertions.assertNotNull(person);
+        Assertions.assertEquals("Ichwan",person.getName());
+        Assertions.assertNotNull(person.getId());
+
+        //coba hapus person.insert di method register, maka akan error jika diverifikasi
+        //verifikasi pemanggilan method
+        Mockito.verify(personRepository, Mockito.times(1)).insert(new Person(person.getId(),"Ichwan"));
+    }
 }
